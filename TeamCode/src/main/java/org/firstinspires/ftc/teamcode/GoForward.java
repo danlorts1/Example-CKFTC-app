@@ -12,30 +12,17 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Autonomous(name = "GoForward")
 public class GoForward extends LinearOpMode {
-    DcMotor leftRear, rightRear, leftFront, rightFront;
+
+    MecanumDrivebase base;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        leftRear=hardwareMap.dcMotor.get("lr");
-        rightRear=hardwareMap.dcMotor.get("rr");
-        leftFront=hardwareMap.dcMotor.get("lf");
-        rightFront=hardwareMap.dcMotor.get("rf");
-        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        base = new MecanumDrivebase(hardwareMap);
 
-        leftRear.setPower(1.0);
-        leftFront.setPower(1.0);
-        rightRear.setPower(1.0);
-        rightFront.setPower(1.0);
+        base.driveTank(1, 1);
 
         Thread.sleep(1000);
 
-
-        leftRear.setPower(0.0);
-        leftFront.setPower(0.0);
-        rightRear.setPower(0.0);
-        rightFront.setPower(0.0);
-
+        base.driveTank(0, 0);
     }
 }
