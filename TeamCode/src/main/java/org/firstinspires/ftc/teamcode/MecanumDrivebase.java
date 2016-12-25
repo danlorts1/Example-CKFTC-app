@@ -37,6 +37,25 @@ public class MecanumDrivebase {
     }
 
     public void driveHolonomic(float x, float y, float r){
-        //TODO
+        double flValue = y + r + x;
+        double rlValue = y + r - x;
+        double frValue = y - r - x;
+        double rrValue = y - r + x;
+
+        double maxValue = Math.max(
+                Math.max(Math.abs(flValue), Math.abs(rlValue)),
+                Math.max(Math.abs(frValue), Math.abs(rrValue))
+        );
+        if (maxValue > 1.0) {
+            flValue /= maxValue;
+            rlValue /= maxValue;
+            frValue /= maxValue;
+            rrValue /= maxValue;
+        }
+
+        leftRear.setPower(rlValue);
+        rightRear.setPower(rrValue);
+        leftFront.setPower(flValue);
+        rightFront.setPower(frValue);
     }
 }
